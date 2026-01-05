@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>big ass tits</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: transparent;
+    }
+    #menu {
+      position: absolute;
+      top: 20%;
+      right: 2%;
+      background: rgba(50, 0, 70, 0.15);
+      padding: 10px 16px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(180, 0, 255, 0.3);
+      text-align: left;
+      color: white;
+      min-width: 180px;
+      backdrop-filter: blur(3px);
+    }
+    #menu h1 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 0 0 6px #d580ff;
+    }
+    .option {
+      font-size: 12px;
+      margin: 4px 0;
+      padding: 4px;
+      color: white;
+    }
+    .selected {
+      color: #ffb3ff;
+      font-weight: bold;
+      text-shadow: 0 0 5px #e38aff;
+    }
+    .toggle-status {
+      margin-top: 6px;
+      font-size: 11px;
+      color: white;
+    }
+    #weaponBubble {
+      position: absolute;
+      right: 2%;
+      top: calc(20% + 120px);
+      background: rgba(100, 0, 120, 0.25);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      text-align: center;
+      min-width: 140px;
+      box-shadow: 0 0 8px rgba(200, 100, 255, 0.4);
+      text-shadow: 0 0 3px #fff;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <h1>Voltage Freecam</h1>
+    <div id="options"></div>
+    <div class="toggle-status" id="toggleStatus"></div>
+  </div>
+  <div id="weaponBubble"></div>
+
+  <script>
+    const options = ["Default", "Teleport", "Delete Car", "Kick From Car", "Shoot Gun"];
+    let hoveredIndex = 0;
+    let currentWeapon = "WEAPON_PISTOL";
+    let freecamEnabled = true;
+
+    function renderMenu() {
+      const optContainer = document.getElementById("options");
+      optContainer.innerHTML = "";
+      options.forEach((option, i) => {
+        const el = document.createElement("div");
+        el.className = "option" + (i === hoveredIndex ? " selected" : "");
+        el.innerText = option;
+        optContainer.appendChild(el);
+      });
+      document.getElementById("toggleStatus").innerText = freecamEnabled ? "[G] Freecam ON" : "[G] Freecam OFF";
+
+      const weaponDisplay = document.getElementById("weaponBubble");
+      if (options[hoveredIndex] === "Shoot Gun") {
+        weaponDisplay.innerText = `Weapon: ${currentWeapon}`;
+        weaponDisplay.style.display = "block";
+      } else {
+        weaponDisplay.style.display = "none";
+      }
+    }
+
+    window.addEventListener("message", function (event) {
+      const data = event.data;
+      if (data.action === "update") {
+        hoveredIndex = data.index;
+        currentWeapon = data.weapon;
+        freecamEnabled = data.enabled;
+        renderMenu();
+      }
+    });
+
+    renderMenu();
+  </script>
+</body>
+</html>
