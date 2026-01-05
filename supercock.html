@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Loading</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#loading {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(145deg, #050505, #0b0b0b);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 999999;
+}
+
+.logo {
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+}
+
+.bar {
+    width: 280px;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.bar span {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00aaff, #0077ff);
+    animation: load 5s ease forwards;
+}
+
+.status {
+    font-size: 14px;
+    opacity: 0.75;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.credit {
+    position: absolute;
+    bottom: 30px;
+    font-size: 12px;
+    opacity: 0.5;
+    letter-spacing: 1px;
+}
+
+.credit span {
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+.hide {
+    animation: exit 1s ease forwards;
+}
+
+@keyframes load {
+    to { width: 100%; }
+}
+
+@keyframes exit {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+    <div class="logo">PABLO MENU</div>
+
+    <div class="bar">
+        <span></span>
+    </div>
+
+    <div class="status">Loading That Shit...</div>
+
+    <div class="credit">
+        Brought to you niggas by <span>Codeplug</span>
+    </div>
+</div>
+
+<script>
+setTimeout(() => {
+    document.getElementById("loading").classList.add("hide");
+}, 5000);
+</script>
+
+</body>
+</html>
